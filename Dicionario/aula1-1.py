@@ -10,7 +10,7 @@ while True:
      except:
         print("digite um numero valido.")
     cpf=input("digite seu cpf: ")
-    agenda [cpf]=cpf
+    agenda[cpf]=cpf
     resp=input("voce deseja continuar add contatos: (s/n)")
     if(resp.lower()=='n'):
         print("saindo do programa")
