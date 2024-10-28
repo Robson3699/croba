@@ -70,10 +70,11 @@ def atualizar_usuario(cpf_antigo, novo_nome, nova_idade, novo_cpf):
 
 def excluir_usuario(cpf):
     usuarios = carregar_usuarios()
-
     for usuario in usuarios:  
         if usuario['cpf'] == cpf:
             usuarios.remove(usuario)
+        else:
+            return print("USUARIO NAO EXISTE NA BASE DE DADOS")
 
     with open(arquivo, 'w') as f:
         json.dump(usuarios, f, indent=5, ensure_ascii=False)
