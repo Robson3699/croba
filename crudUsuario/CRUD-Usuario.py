@@ -94,7 +94,6 @@ def buscar_usuario(cpf):
     if not encontrado:
         print("😒 NENHUM USUÁRIO CADASTRADO.")
     
-
 def linha_horizontal(cor):
     return cor + "=" * 50 + cor['RESET']
 
@@ -142,25 +141,25 @@ def main():
                     if opcao == "1":
                         nome = input(" DIGITE O NOME:\n>>>").lower()
                         idade = input(" DIGITE A IDADE:\n>>>")
-                        cpf = input(" DIGITE O CPF:\n>>>")
+                        cpf = input(cor.VERMELHO+"DIGITE O CPF:\n>>>"+cor.RESET)
                         endereco = input(" DIGITE O ENDERECO:\n>>>").lower()
                         tel = input(" DIGITE O TELEFONE:\n>>>")
                         adicionar_usuario(nome, idade, cpf, endereco, tel)
                     elif opcao == "2":
                         listar_usuarios()
                     elif opcao == "3":
-                         cpf_antigo = input("DIGITE O CPF A SER ATUALIZADO:\n>>>")
+                         cpf_antigo = input(cor.VERMELHO+"DIGITE O CPF A SER ATUALIZADO:\n>>>"+cor.RESET)
                          novo_nome = input("DIGITE O NOVO NOME:\n>>>").lower()
                          nova_idade = input("DIGITE A NOVA IDADE:\n>>>")
-                         novo_cpf = input("DIGITE O NOVO CPF:\n>>>")
+                         novo_cpf = input(cor.VERMELHO+"DIGITE O NOVO CPF:\n>>>"+cor.RESET)
                          novo_endereco = input("DIGITE O NOVO ENDERECO:\n>>>").lower()
                          novo_tel = input("DIGITE O NOVO TELEFONE:\n>>>")
                          atualizar_usuario(cpf_antigo, novo_nome, nova_idade, novo_cpf,novo_endereco,novo_tel)
                     elif opcao == "4":
-                        cpf = input("DIGITE O CPF DO USUÁRIO A SER EXCLUÍDO:\n>>>")
+                        cpf = input(cor.VERMELHO+"DIGITE O CPF DO USUÁRIO A SER EXCLUÍDO:\n>>>"+cor.RESET)
                         excluir_usuario(cpf)
                     elif opcao == "5":
-                        cpf = input("DIGITE O CPF DO USUÁRIO:\n>>>")
+                        cpf = input(cor.VERMELHO+"DIGITE O CPF DO USUÁRIO:\n>>>"+cor.RESET)
                         buscar_usuario(cpf)
                     elif opcao == "6":
                         print("VOLTAR AO MENU ANTERIOR...")
