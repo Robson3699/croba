@@ -111,7 +111,7 @@ def exibir_menu():
     print("2. LISTAR USUÁRIOS")
     print("3. ATUALIZAR USUÁRIO")
     print("4. EXCLUIR USUÁRIO")
-    print("5. LISTAR UM USUÁRIO")
+    print("5. BUSCAR USUARIO POR CPF")
     print("6. VOLTAR AO MENU ANTERIOR")
 def menu_att():
     print("MENU DE ATUALIZACAO INDIVUAL\n")
