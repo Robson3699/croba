@@ -21,22 +21,22 @@ def carregar_usuarios():
     # Verifica se o arquivo existe, se não existir, cria um arquivo com lista vazia
     if not os.path.exists(arquivo):
         with open(arquivo, 'w') as f:
-            json.dump([], f, indent=5)
+            json.dump([], f, indent=7)
     
     # Carrega o conteúdo do arquivo
     with open(arquivo, 'r') as f:
         return json.load(f)
 
-def adicionar_usuario(nome, idade, cpf):
+def adicionar_usuario(nome, idade, cpf, endereco, tel):
     usuarios = carregar_usuarios()
     for usuario in usuarios:
         if usuario['cpf'] == cpf:
             return print("USUARIO JA CADASTRADO!")
 
-    usuarios.append({'nome': nome, 'idade': idade, 'cpf': cpf})
+    usuarios.append({'nome': nome, 'idade': idade, 'cpf': cpf, 'endereco': endereco,'tel':tel})
 
     with open(arquivo, 'w') as f:
-        json.dump(usuarios, f, indent=5, ensure_ascii=False)
+        json.dump(usuarios, f, indent=7, ensure_ascii=False)
     print("😎 USUÁRIO ADICIONADO COM SUCESSO!")
     
 def listar_usuarios():
@@ -48,13 +48,13 @@ def listar_usuarios():
         print("-" *50)
         for usuario in usuarios:
             print("*" *50)
-            print(f"NOME: {usuario['nome']}, IDADE: {usuario['idade']}, CPF: {usuario['cpf']}")
+            print(f"NOME: {usuario['nome']}, IDADE: {usuario['idade']}, CPF: {usuario['cpf']}, ENDERECO: {usuario['endereco']}, TELEFONE: {usuario['tel']}")
             print("*" *50)
             print("=" *50)
     else:
         print("😒 NENHUM USUÁRIO CADASTRADO.")
 
-def atualizar_usuario(cpf_antigo, novo_nome, nova_idade, novo_cpf):
+def atualizar_usuario(cpf_antigo, novo_nome, nova_idade, novo_cpf,novo_endereco,novo_tel):
     usuarios = carregar_usuarios()
 
     for usuario in usuarios:
@@ -62,10 +62,12 @@ def atualizar_usuario(cpf_antigo, novo_nome, nova_idade, novo_cpf):
             usuario['nome'] = novo_nome
             usuario['idade'] = nova_idade
             usuario['cpf'] = novo_cpf
+            usuario['endereco'] = novo_endereco
+            usuario['tel'] = novo_tel
             break
 
     with open(arquivo, 'w') as f:
-        json.dump(usuarios, f, indent=5, ensure_ascii=False)
+        json.dump(usuarios, f, indent=7, ensure_ascii=False)
     print("😙 USUÁRIO ATUALIZADO COM SUCESSO!")
 
 def excluir_usuario(cpf):
@@ -77,7 +79,7 @@ def excluir_usuario(cpf):
             return print("USUARIO NAO EXISTE NA BASE DE DADOS")
 
     with open(arquivo, 'w') as f:
-        json.dump(usuarios, f, indent=5, ensure_ascii=False)
+        json.dump(usuarios, f, indent=7, ensure_ascii=False)
     print("😡 USUÁRIO EXCLUÍDO COM SUCESSO!")
 
 def buscar_usuario(cpf):
@@ -87,7 +89,7 @@ def buscar_usuario(cpf):
 
     for usuario in usuarios:
         if usuario['cpf'] == cpf:
-            print(f"NOME: {usuario['nome']}, IDADE: {usuario['idade']}, CPF: {usuario['cpf']}")
+            print(f"NOME: {usuario['nome']}, IDADE: {usuario['idade']}, CPF: {usuario['cpf']}, ENDERECO: {usuario['adress']}, TELEFONE:{usuario['tel']}")
             encontrado = True
     if not encontrado:
         print("😒 NENHUM USUÁRIO CADASTRADO.")
@@ -112,6 +114,14 @@ def exibir_menu():
     print("4. EXCLUIR USUÁRIO")
     print("5. LISTAR UM USUÁRIO")
     print("6. VOLTAR AO MENU ANTERIOR")
+def menu_att():
+    print("MENU DE ATUALIZACAO INDIVUAL\n")
+    print("1. ATUALIZAR TUDO: ")
+    print("2. ATUALIZAR NOME: ")
+    print("3. ATUALIZAR CPF: ")
+    print("4. ATUALIAZAR IDADE: ")
+    print("5. ATUALIZAR ENDERECO: ")
+    print("6. ATUALIZAR TELEFONE: ")
 
 
 def main():
@@ -130,18 +140,22 @@ def main():
                     opcao = input("ESCOLHA UMA OPÇÃO:\n>>>")
 
                     if opcao == "1":
-                        nome = input(" DIGITE O NOME:\n>>>")
+                        nome = input(" DIGITE O NOME:\n>>>").lower()
                         idade = input(" DIGITE A IDADE:\n>>>")
                         cpf = input(" DIGITE O CPF:\n>>>")
-                        adicionar_usuario(nome, idade, cpf)
+                        endereco = input(" DIGITE O ENDERECO:\n>>>").lower()
+                        tel = input(" DIGITE O TELEFONE:\n>>>")
+                        adicionar_usuario(nome, idade, cpf, endereco, tel)
                     elif opcao == "2":
                         listar_usuarios()
                     elif opcao == "3":
-                        cpf_antigo = input("DIGITE O CPF A SER ATUALIZADO:\n>>>")
-                        novo_nome = input("DIGITE O NOVO NOME:\n>>>")
-                        nova_idade = input("DIGITE A NOVA IDADE:\n>>>")
-                        novo_cpf = input("DIGITE O NOVO CPF:\n>>>")
-                        atualizar_usuario(cpf_antigo, novo_nome, nova_idade, novo_cpf)
+                         cpf_antigo = input("DIGITE O CPF A SER ATUALIZADO:\n>>>")
+                         novo_nome = input("DIGITE O NOVO NOME:\n>>>").lower()
+                         nova_idade = input("DIGITE A NOVA IDADE:\n>>>")
+                         novo_cpf = input("DIGITE O NOVO CPF:\n>>>")
+                         novo_endereco = input("DIGITE O NOVO ENDERECO:\n>>>").lower()
+                         novo_tel = input("DIGITE O NOVO TELEFONE:\n>>>")
+                         atualizar_usuario(cpf_antigo, novo_nome, nova_idade, novo_cpf,novo_endereco,novo_tel)
                     elif opcao == "4":
                         cpf = input("DIGITE O CPF DO USUÁRIO A SER EXCLUÍDO:\n>>>")
                         excluir_usuario(cpf)
