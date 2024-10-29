@@ -32,7 +32,6 @@ def adicionar_usuario(nome, idade, cpf, endereco, tel):
     for usuario in usuarios:
         if usuario['cpf'] == cpf:
             return print("USUARIO JA CADASTRADO!")
-
     usuarios.append({'nome': nome, 'idade': idade, 'cpf': cpf, 'endereco': endereco,'tel':tel})
 
     with open(arquivo, 'w') as f:
@@ -48,7 +47,7 @@ def listar_usuarios():
         print("-" *50)
         for usuario in usuarios:
             print("*" *50)
-            print(f"NOME: {usuario['nome']}, IDADE: {usuario['idade']}, CPF: {usuario['cpf']}, ENDERECO: {usuario['endereco']}, TELEFONE: {usuario['tel']}")
+            print(f"NOME: {usuario['nome']}\nIDADE: {usuario['idade']}\nCPF: {usuario['cpf']}\nENDERECO: {usuario['endereco']}\nTELEFONE: {usuario['tel']}")
             print("*" *50)
             print("=" *50)
     else:
@@ -56,6 +55,7 @@ def listar_usuarios():
 
 def atualizar_usuario(cpf_antigo, novo_nome, nova_idade, novo_cpf,novo_endereco,novo_tel):
     usuarios = carregar_usuarios()
+    encontrado=False
 
     for usuario in usuarios:
         if usuario['cpf'] == cpf_antigo:
@@ -64,7 +64,10 @@ def atualizar_usuario(cpf_antigo, novo_nome, nova_idade, novo_cpf,novo_endereco,
             usuario['cpf'] = novo_cpf
             usuario['endereco'] = novo_endereco
             usuario['tel'] = novo_tel
-            break
+            encontrado=True
+            
+    if not encontrado:
+        return print("USUARIO NAO ENCONTRADO")
 
     with open(arquivo, 'w') as f:
         json.dump(usuarios, f, indent=7, ensure_ascii=False)
@@ -72,11 +75,14 @@ def atualizar_usuario(cpf_antigo, novo_nome, nova_idade, novo_cpf,novo_endereco,
 
 def excluir_usuario(cpf):
     usuarios = carregar_usuarios()
+    exclusao=False
     for usuario in usuarios:  
         if usuario['cpf'] == cpf:
             usuarios.remove(usuario)
-        else:
-            return print("USUARIO NAO EXISTE NA BASE DE DADOS")
+            exclusao=True
+    if not exclusao:
+        return print("USUARIO NAO EXISTE NA BASE DE DADOS")    
+            
 
     with open(arquivo, 'w') as f:
         json.dump(usuarios, f, indent=7, ensure_ascii=False)
@@ -89,10 +95,17 @@ def buscar_usuario(cpf):
 
     for usuario in usuarios:
         if usuario['cpf'] == cpf:
-            print(f"NOME: {usuario['nome']}, IDADE: {usuario['idade']}, CPF: {usuario['cpf']}, ENDERECO: {usuario['adress']}, TELEFONE:{usuario['tel']}")
-            encontrado = True
+            print("=" *50)
+            print("USUARIO ENCONTRADO:")
+            print("-" *50)
+            print("*" *50)
+            print(f"NOME: {usuario['nome']}\nIDADE: {usuario['idade']}\nCPF: {usuario['cpf']}\nENDERECO: {usuario['endereco']}\nTELEFONE: {usuario['tel']}")
+            print("*" *50)
+            print("=" *50)
+            encontrado=True
     if not encontrado:
-        print("😒 NENHUM USUÁRIO CADASTRADO.")
+         print("😒 NENHUM USUÁRIO CADASTRADO.")
+         return encontrado
     
 def linha_horizontal(cor):
     return cor + "=" * 50 + cor['RESET']
@@ -141,6 +154,10 @@ def main():
                     if opcao == "1":
                         nome = input(" DIGITE O NOME:\n>>>").lower()
                         idade = input(" DIGITE A IDADE:\n>>>")
+                        idade_int=int(idade)
+                        if idade_int<18:
+                            print(cor.VERDE+("VOLTA PARA ESCOLA MLK"))
+                            break
                         cpf = input(cor.VERMELHO+"DIGITE O CPF:\n>>>"+cor.RESET)
                         endereco = input(" DIGITE O ENDERECO:\n>>>").lower()
                         tel = input(" DIGITE O TELEFONE:\n>>>")
@@ -149,8 +166,14 @@ def main():
                         listar_usuarios()
                     elif opcao == "3":
                          cpf_antigo = input(cor.VERMELHO+"DIGITE O CPF A SER ATUALIZADO:\n>>>"+cor.RESET)
+                         if buscar_usuario(cpf_antigo) == False:
+                             break
                          novo_nome = input("DIGITE O NOVO NOME:\n>>>").lower()
                          nova_idade = input("DIGITE A NOVA IDADE:\n>>>")
+                         nova_idade_int=int(nova_idade)
+                         if nova_idade_int<18:
+                             print("IDADE MENOR QUE 18 ANOS")
+                             break
                          novo_cpf = input(cor.VERMELHO+"DIGITE O NOVO CPF:\n>>>"+cor.RESET)
                          novo_endereco = input("DIGITE O NOVO ENDERECO:\n>>>").lower()
                          novo_tel = input("DIGITE O NOVO TELEFONE:\n>>>")
