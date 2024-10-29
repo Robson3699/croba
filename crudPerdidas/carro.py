@@ -41,8 +41,8 @@ def listar_carros():
 
     if carros:
         print("=" *50)
-        print("LISTA DE CARROS:")
-        print("-" *50)
+        print(centralizar_texto(cor.AZUL+"LISTA DE CARROS....:"+cor.RESET, largura ))
+        print("=" *50)
         print(f"{'Placa':<16}{'Modelo':<15}{'Kilometragem':<15}")
         print("-" * 50)
         for carro in carros:
@@ -103,7 +103,7 @@ def menu_inicial():
     print("          3 - SAIR ")
     print(cor.CIANO + "=" *55 + cor.RESET)
     
-def exibir_menu():
+def exibir_menu_veiculo():
     print("\nMENU:")
     print("1. ADICIONAR CARRO")
     print("2. ATUALIZAR  KM DO CARRO PELA PLACA")
@@ -129,7 +129,7 @@ def main():
 
             case 1:
                 while True: 
-                    exibir_menu()
+                    exibir_menu_veiculo()
                     opcao = input("ESCOLHA UMA OPÇÃO:\n>>>")
 
                     if opcao == "1":
@@ -137,20 +137,36 @@ def main():
                         print("=" * largura)
                         print(centralizar_texto(cor.VERDE+"ADICIONANDO UM VEICULO....:"+cor.RESET, largura ))
                         print("=" * largura)
+                        
                         placa = input(" 🚧 DIGITE A PLACA:\n>>> ")
                         carros = carregar_veiculos()
+                        
                         if any(carro['placa'].lower() == placa.lower() for carro in carros):
                             print("🚫 Placa já cadastrada.")
                             opc=input("APERTE ENTER PARA CONTINUAR")
                             if(opc=="enter"):
-                                exibir_menu()
+                                exibir_menu_veiculo()
                             os.system('cls')
+                       
                         else:
                             modelo = input(" 🦽 DIGITE O MODELO:\n>>> ")
                             kilometragem = input("⏱ DIGITE A KILOMETRAGEM ATUAL:\n>>> ")
                             carregar_carros(placa, modelo, kilometragem)
+                           
+                            opc=input("APERTE ENTER PARA CONTINUAR")
+                            if(opc=="enter"):
+                                exibir_menu_veiculo()
+                            os.system('cls')
+                   
                     elif opcao == "4":
+                        os.system('cls')
                         listar_carros()
+                        
+                        opc=input("APERTE ENTER PARA CONTINUAR")
+                        if(opc=="enter"):
+                            exibir_menu_veiculo()
+                        os.system('cls')
+                    
                     elif opcao == "2":
                         os.system('cls')
                         print("=" * largura)
@@ -172,7 +188,7 @@ def main():
                         opc=input("APERTE ENTER PARA CONTINUAR")
                         if(opc=="enter"):
                             
-                            exibir_menu()
+                            exibir_menu_veiculo()
                         os.system('cls')
                     elif opcao == "6":
                         print("🐌 VOLTANDO AO MENU ANTERIOR...")
