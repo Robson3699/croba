@@ -118,7 +118,7 @@ def menu_inicial():
     print("          3 - SAIR ")
     print(cor.CIANO + "=" *55 + cor.RESET)
     
-def exibir_menu():
+def exibir_menu_usuario():
     print("\nMENU:")
     print("1. ADICIONAR USUÁRIO")
     print("2. LISTAR USUÁRIOS")
@@ -148,7 +148,7 @@ def main():
 
             case 1:
                 while True: 
-                    exibir_menu()
+                    exibir_menu_usuario()()
                     opcao = input("ESCOLHA UMA OPÇÃO:\n>>>")
 
                     if opcao == "1":
