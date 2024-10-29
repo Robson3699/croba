@@ -136,7 +136,7 @@ def menu_att():
     print("6. ATUALIZAR TELEFONE: ")
 
 
-def main():
+def main_usuario():
     
     while True:
         menu_inicial()
@@ -148,7 +148,7 @@ def main():
 
             case 1:
                 while True: 
-                    exibir_menu_usuario()()
+                    exibir_menu_usuario()
                     opcao = input("ESCOLHA UMA OPÇÃO:\n>>>")
 
                     if opcao == "1":
@@ -198,4 +198,4 @@ def main():
                 print("😡 OPÇÃO INVÁLIDA. TENTE NOVAMENTE!")
 
 if __name__ == "__main__":
-    main()
+    main_usuario()
