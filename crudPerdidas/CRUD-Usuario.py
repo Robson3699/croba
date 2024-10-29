@@ -29,9 +29,6 @@ def carregar_usuarios():
 
 def adicionar_usuario(nome, idade, cpf, endereco, tel):
     usuarios = carregar_usuarios()
-    for usuario in usuarios:
-        if usuario['cpf'] == cpf:
-            return print("USUARIO JA CADASTRADO!")
     usuarios.append({'nome': nome, 'idade': idade, 'cpf': cpf, 'endereco': endereco,'tel':tel})
 
     with open(arquivo, 'w') as f:
@@ -152,19 +149,30 @@ def main_usuario():
                     opcao = input("ESCOLHA UMA OPÇÃO:\n>>>")
 
                     if opcao == "1":
+                        os.system('cls')
+                        print("ADICIONANDO USUARIO\n")
                         nome = input(" DIGITE O NOME:\n>>>").lower()
                         idade = input(" DIGITE A IDADE:\n>>>")
                         idade_int=int(idade)
                         if idade_int<18:
+                            os.system('cls')
                             print(cor.VERDE+("VOLTA PARA ESCOLA MLK"))
                             break
                         cpf = input(cor.VERMELHO+"DIGITE O CPF:\n>>>"+cor.RESET)
+                        usuarios=carregar_usuarios()
+                        if any(usuario['cpf'] == cpf for usuario in usuarios):
+                            os.system('cls')
+                            print("USUARIO JA CADASTRADO")
+                            break
                         endereco = input(" DIGITE O ENDERECO:\n>>>").lower()
                         tel = input(" DIGITE O TELEFONE:\n>>>")
                         adicionar_usuario(nome, idade, cpf, endereco, tel)
+                        
                     elif opcao == "2":
+                        os.system('cls')
                         listar_usuarios()
                     elif opcao == "3":
+                         os.system('cls')
                          cpf_antigo = input(cor.VERMELHO+"DIGITE O CPF A SER ATUALIZADO:\n>>>"+cor.RESET)
                          if buscar_usuario(cpf_antigo) == False:
                              break
@@ -179,12 +187,15 @@ def main_usuario():
                          novo_tel = input("DIGITE O NOVO TELEFONE:\n>>>")
                          atualizar_usuario(cpf_antigo, novo_nome, nova_idade, novo_cpf,novo_endereco,novo_tel)
                     elif opcao == "4":
+                        os.system('cls')
                         cpf = input(cor.VERMELHO+"DIGITE O CPF DO USUÁRIO A SER EXCLUÍDO:\n>>>"+cor.RESET)
                         excluir_usuario(cpf)
                     elif opcao == "5":
+                        os.system('cls')
                         cpf = input(cor.VERMELHO+"DIGITE O CPF DO USUÁRIO:\n>>>"+cor.RESET)
                         buscar_usuario(cpf)
                     elif opcao == "6":
+                        os.system('cls')
                         print("VOLTAR AO MENU ANTERIOR...")
 ##                        sleep(3)
                         break
